@@ -1,0 +1,7 @@
+.recharts-bar-rectangle:hover {
+  cursor: pointer;
+}
+
+.recharts-bar-rectangle:hover rect {
+  fill-opacity: 50%;
+}

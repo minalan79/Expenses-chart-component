@@ -48,6 +48,8 @@
 
 .graph {
   grid-column: 1 / -1;
+  justify-self: center;
+  width: 400px;
 }
 
 .graph-text-container {
@@ -65,8 +67,3 @@
   font-weight: var(--fw-bold);
   color: var(--clr-darkbrow);
 }
-
-/* 
-.graph {
-  width: 400px;
-} */

@@ -1,81 +1,63 @@
 import React from "react";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Bar } from "react-chartjs-2";
-import json from "./assets/images/data.json";
+import { BarChart, Bar, Tooltip, XAxis, ResponsiveContainer } from "recharts";
+import jsondata from "./assets/data.json";
+import "./Graph.css";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
-    },
-    title: {
-      display: true,
-      text: "Chart.js Bar Chart",
-    },
-  },
-  scales: {
-    y: [
-      {
-        grid: {
-          color: "#aaa",
-          borderDash: [1, 3],
-          display: false,
-        },
-        display: false, // this will hide vertical lines
-      },
-    ],
-    xAxes: [
-      {
-        grid: {
-          color: "#aaa",
-          borderDash: [1, 3],
-          display: false,
-        },
-        display: false, // this will hide vertical lines
-      },
-    ],
-  },
+const getMaxValueIndex = (data) => {
+  let maxIndex = 0;
+  for (let i = 1; i < data.length; i++) {
+    if (data[i].amount > data[maxIndex].amount) {
+      maxIndex = i;
+    }
+  }
+  return maxIndex;
 };
 
-const labels = json.map((j) => j.day);
+const CustomBar = (props) => {
+  const { x, y, width, height, fill } = props;
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      xAxisID: "xAxes",
-      label: "Dataset 1",
-      data: json.map((j) => j.amount),
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-  ],
-};
-
-function Graph() {
-  console.log(labels, data);
   return (
-    <>
-      <Bar data={data} height={400} width={600} options={options} />
-    </>
+    <g>
+      <rect x={x} y={y} width={width} height={height} fill={fill} rx="5" />
+    </g>
   );
+};
+
+function CustomTooltip({ payload, active }) {
+  if (active) {
+    return (
+      <div className="custom-tooltip">
+        <p className="label">{`$${payload[0].value}`}</p>
+      </div>
+    );
+  }
+
+  return null;
 }
 
-export default Graph;
+export default function Graph() {
+  return (
+    <ResponsiveContainer width="100%" height={250}>
+      <BarChart data={jsondata}>
+        <Tooltip
+          cursor={{ fill: "none", cursor: "pointer" }}
+          content={<CustomTooltip />}
+          wrapperStyle={{
+            backgroundColor: "var(--clr-darkbrow)",
+            borderRadius: "5px",
+            borderWidth: "0",
+            outline: "none",
+            padding: "0.5rem",
+            color: "var(--clr-verypale-orange)",
+          }}
+        />
+        <XAxis
+          dataKey="day"
+          axisLine={{ display: "none" }}
+          tickLine={{ display: "none" }}
+        />
+        <Bar dataKey="amount" fill="var(--clr-softred)" shape={<CustomBar />} />
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
