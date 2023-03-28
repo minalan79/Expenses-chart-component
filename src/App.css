@@ -1,0 +1,72 @@
+.App {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.balance,
+.chart {
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.balance {
+  background-color: var(--clr-softred);
+  align-items: center;
+  color: var(--clr-verypale-orange);
+}
+
+.currentBalance {
+  font-size: var(--fs-800);
+  font-weight: var(--fw-bold);
+}
+
+.logo {
+  grid-row: span 2;
+  justify-self: end;
+}
+
+.chart {
+  background-color: var(--clr-verypale-orange);
+  color: var(--clr-darkbrow);
+}
+
+.heading {
+  grid-column: 1 / -1;
+  font-size: var(--fs-800);
+  font-weight: var(--fw-bold);
+}
+
+.chart-text {
+  color: var(--clr-mediumbrown);
+}
+
+.graph {
+  grid-column: 1 / -1;
+}
+
+.graph-text-container {
+  display: flex;
+  flex-direction: column;
+  align-self: self-end;
+}
+
+.monthSpending {
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-900);
+}
+
+.monthSpendingChange {
+  font-weight: var(--fw-bold);
+  color: var(--clr-darkbrow);
+}
+
+/* 
+.graph {
+  width: 400px;
+} */
