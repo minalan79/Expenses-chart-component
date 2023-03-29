@@ -37,8 +37,8 @@ dd {
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role='list'],
-ol[role='list'] {
+ul[role="list"],
+ol[role="list"] {
   list-style: none;
 }
 
@@ -98,10 +98,15 @@ h3 {
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   display: grid;
   justify-content: center;
   align-items: center;
   background-color: var(--clr-cream);
   font-size: var(--fs-400);
+  width: 100%;
+}
+
+#root {
+  width: 100%;
 }

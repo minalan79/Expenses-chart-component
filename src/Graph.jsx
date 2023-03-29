@@ -3,15 +3,17 @@ import { BarChart, Bar, Tooltip, XAxis, ResponsiveContainer } from "recharts";
 import jsondata from "./assets/data.json";
 import "./Graph.css";
 
-const getMaxValueIndex = (data) => {
-  let maxIndex = 0;
-  for (let i = 1; i < data.length; i++) {
-    if (data[i].amount > data[maxIndex].amount) {
-      maxIndex = i;
-    }
-  }
-  return maxIndex;
-};
+// const getMaxValue = (data) => {
+//   return Math.max(...data.map((item) => item.amount));
+// };
+
+const max = Math.max(...jsondata.map((item) => item.amount));
+
+jsondata.map((j) =>
+  j.amount === max
+    ? (j.fill = "var(--clr-cyan)")
+    : (j.fill = "var(--clr-softred)")
+);
 
 const CustomBar = (props) => {
   const { x, y, width, height, fill } = props;
@@ -22,6 +24,12 @@ const CustomBar = (props) => {
     </g>
   );
 };
+
+// const NewBar = ({ data, max }) => {
+//   console.log(data);
+//   const fill = data.amount === max ? "green" : "blue";
+//   return <Bar dataKey="amount" fill={fill} shape={<CustomBar />} />;
+// };
 
 function CustomTooltip({ payload, active }) {
   if (active) {
@@ -56,7 +64,8 @@ export default function Graph() {
           axisLine={{ display: "none" }}
           tickLine={{ display: "none" }}
         />
-        <Bar dataKey="amount" fill="var(--clr-softred)" shape={<CustomBar />} />
+        <Bar dataKey="amount" shape={<CustomBar />} />
+        {/* <NewBar max={52.36} data={jsondata} /> */}
       </BarChart>
     </ResponsiveContainer>
   );
